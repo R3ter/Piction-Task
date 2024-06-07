@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import OpenAI from "openai";
 
-const useOpenAI = () => {
+const useOpenAI = (prompt) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const openai = new OpenAI({
-    apiKey: "",
-    dangerouslyAllowBrowser: true,
-  });
-
-  const fetchResponse = async (prompt) => {
+  const fetchResponse = useCallback(async () => {
     setLoading(true);
     setError(null);
+
+    const openai = new OpenAI({
+      apiKey: process.env.REACT_APP_OPENAI_API_KEY || "",
+      dangerouslyAllowBrowser: true,
+    });
+
     try {
       const result = await openai.completions.create({
         model: "gpt-3.5-turbo-16k-0613",
@@ -25,9 +26,15 @@ const useOpenAI = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [prompt]);
 
-  return { data, error, loading, fetchResponse };
+  useEffect(() => {
+    if (prompt) {
+      fetchResponse();
+    }
+  }, [fetchResponse, prompt]);
+
+  return { data, error, loading };
 };
 
 export default useOpenAI;

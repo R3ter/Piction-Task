@@ -1,12 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import useOpenAI from "../hooks/UseOpenIa";
+import useOpenAI from "../hooks/useOpenai";
 import Skeleton from "@mui/material/Skeleton";
-import { useEffect } from "react";
+
 const SummaryPage = () => {
-  const { data, loading, error, fetchResponse } = useOpenAI(prompt);
-  useEffect(() => {
-    fetchResponse("hello world");
-  });
+  const { data, loading, error } = useOpenAI("prompt");
+
   return (
     <Box sx={{ margin: 2 }}>
       <Box sx={{ m: 7 }} />
