@@ -6,7 +6,7 @@ const SummaryPage = () => {
   const { data, loading, error, fetchResponse } = useOpenAI(prompt);
   useEffect(() => {
     fetchResponse("hello world");
-  }, []);
+  });
   return (
     <Box sx={{ margin: 2 }}>
       <Box sx={{ m: 7 }} />
