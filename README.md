@@ -1,6 +1,3 @@
-
-
-
 # Take home assignment
 
 ## Goal
@@ -229,7 +226,6 @@ The `useOpenAI` custom hook returns an object with the following properties:
 - `data` (`String` or `null`): The response data from the OpenAI API.
 - `error` (`String` or `null`): Any error message encountered during API interaction.
 - `loading` (`Boolean`): Indicates whether the API request is in progress.
-- `fetchResponse` (`Function`): Function to fetch a response from the OpenAI API. It takes a prompt as an argument.
 
 ### Example
 
@@ -241,11 +237,7 @@ import useOpenAI from "<your-hook-package>";
 
 const ExampleComponent = () => {
   const [prompt, setPrompt] = useState("");
-  const { data, error, loading, fetchResponse } = useOpenAI();
-
-  const handleSubmit = () => {
-    fetchResponse(prompt);
-  };
+  const { data, error, loading } = useOpenAI(prompt);
 
   return (
     <div>
