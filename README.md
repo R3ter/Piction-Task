@@ -1,3 +1,7 @@
+## Live Demo
+
+https://eclectic-fairy-2295f6.netlify.app/
+
 # Take home assignment
 
 ## Goal
