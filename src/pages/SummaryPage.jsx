@@ -1,17 +1,27 @@
 import { Box, Typography } from "@mui/material";
-import useOpenAI from "../hooks/useOpenai";
+import useCohere from "../hooks/useCohere";
 import Skeleton from "@mui/material/Skeleton";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const SummaryPage = () => {
   const name = useSelector((state) => state.name);
   const birthday = useSelector((state) => state.birthDay);
   const issue = useSelector((state) => state.issue);
-  const { data, loading, error } = useOpenAI(`
-  Patient Name: ${name}
-  Date of Birth: ${birthday}
-  Symptoms and Feelings: ${issue}
-  Based on the provided information, what potential condition might the patient have? Provide a possible diagnosis in four sentences.`);
+  const prompt = `
+  Craft a detailed and concise summary of the patient's healthcare information in paragraph form. in less than 6 sentence.
+Patient Information:
+Name: ${name}
+Date of Birth: ${birthday}
+Reported Issue: ${issue}
+`;
+
+  const { generateText, data, error, loading } = useCohere();
+
+  useEffect(() => {
+    generateText(prompt);
+    console.log("wad");
+  }, [generateText, prompt]);
 
   return (
     <Box sx={{ margin: 2 }}>

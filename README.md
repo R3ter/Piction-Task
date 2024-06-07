@@ -205,7 +205,7 @@ const ExampleComponent = () => {
 
   return (
     <div>
-      {/* Your component UI goes here */}
+      {/* Your component UI  */}
       <button onClick={() => handleSubmit("someValue")}>Submit</button>
     </div>
   );
@@ -214,45 +214,52 @@ const ExampleComponent = () => {
 export default ExampleComponent;
 ```
 
-# useOpenAI Custom Hook
+# useCohere Custom Hook Component
 
-A custom hook for interacting with the OpenAI API in React applications.
+## Purpose
+
+The `useCohere` custom hook component facilitates interactions with the Cohere API for generating text based on provided prompts. It handles asynchronous data fetching, tracks loading states, and manages error handling within a React application.
 
 ## Features
 
-- **State Management**: Utilizes React's `useState` hook for managing data, error, and loading state.
-- **API Interaction**: Interacts with the OpenAI API to fetch responses based on provided prompts.
+- State Management using `useState` hook.
+- Asynchronous Data Fetching with error handling using `fetch` API.
+- Loading state management for UI responsiveness.
 
-## Props
+## Usage
 
-The `useOpenAI` custom hook returns an object with the following properties:
-
-- `data` (`String` or `null`): The response data from the OpenAI API.
-- `error` (`String` or `null`): Any error message encountered during API interaction.
-- `loading` (`Boolean`): Indicates whether the API request is in progress.
-
-### Example
-
-Here's an example of how to use the `useOpenAI` custom hook with props:
-
-```jsx
+```javascript
 import React, { useState } from "react";
-import useOpenAI from "<your-hook-package>";
+import useCohere from "./useCohere";
 
-const ExampleComponent = () => {
+const CohereComponent = () => {
+  const { generateText, data, error, loading } = useCohere();
   const [prompt, setPrompt] = useState("");
-  const { data, error, loading } = useOpenAI(prompt);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await generateText(prompt);
+  };
 
   return (
     <div>
-      <input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
-      <button onClick={handleSubmit}>Submit</button>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Enter your prompt"
+        />
+        <button type="submit" disabled={loading}>
+          Generate
+        </button>
+      </form>
       {loading && <p>Loading...</p>}
-      {data && <p>Response: {data}</p>}
       {error && <p>Error: {error}</p>}
+      {data && <p>Generated Text: {data}</p>}
     </div>
   );
 };
 
-export default ExampleComponent;
+export default CohereComponent;
 ```
