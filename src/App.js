@@ -1,40 +1,20 @@
-import './App.css';
-import {createTheme, ScopedCssBaseline, ThemeProvider} from "@mui/material";
+import "./App.css";
+import { createTheme, ScopedCssBaseline, ThemeProvider } from "@mui/material";
 import CustomRoutes from "./CustomRoutes";
+import { store } from "./Redux/slicer";
+import { Provider } from "react-redux";
+import defaultTheme from "./themes/defaultTheme";
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ['Lato', 'sans-serif'].join(','),
-  },
-  palette: {
-    primary: {
-      main: '#fff',
-    },
-    secondary: {
-      main: '#484848',
-    },
-    piction: {
-      background: '#eaeaea',
-      text: '#6c6c72',
-      white: '#fff',
-    },
-    grayTones: {
-      main: '#636363',
-      light: '#eeeeee',
-      lighter: '#f5f5f5',
-      ultralight: '#fafafa',
-    },
-  },
-  spacing: 8,
-});
-
+const theme = createTheme(defaultTheme);
 
 function App() {
   return (
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
         <ScopedCssBaseline>
           <CustomRoutes />
         </ScopedCssBaseline>
+      </Provider>
     </ThemeProvider>
   );
 }
