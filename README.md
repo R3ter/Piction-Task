@@ -2,6 +2,10 @@
 
 https://eclectic-fairy-2295f6.netlify.app/
 
+## Video Demo
+
+https://github.com/R3ter/Piction-Task/assets/42614334/f379d4c2-0433-42e0-b788-f4e1e522529e
+
 # Take home assignment
 
 ## Goal

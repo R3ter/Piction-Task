@@ -9,7 +9,7 @@ const SummaryPage = () => {
   const birthday = useSelector((state) => state.birthDay);
   const issue = useSelector((state) => state.issue);
   const prompt = `
-  Craft a detailed and concise summary of the patient's healthcare information in paragraph form. in less than 6 sentence.
+  Craft a detailed and concise summary of the patient's healthcare information in paragraph form. in less than 4 sentence.
 Patient Information:
 Name: ${name}
 Date of Birth: ${birthday}
